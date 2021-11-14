@@ -1,9 +1,7 @@
-
 plugins {
     id 'org.springframework.boot' version '2.5.6'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id "com.netflix.dgs.codegen" version "5.1.7"
 }
 
 group = 'com.example'
@@ -21,33 +19,24 @@ repositories {
 }
 
 dependencies {
-
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
-    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    implementation 'org.projectlombok:lombok:1.18.20'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
     annotationProcessor 'org.projectlombok:lombok'
 
-//    implementation 'org.springframework.boot:spring-boot-starter-jooq'
-    implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
-    implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
+    // jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
-    // 쿼리 파라미터, 실행결과 출력.
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 test {
     useJUnitPlatform()
-}
-
-generateJava{
-    schemaPaths = ["${projectDir}/src/main/resources/schema"] // List of directories containing schema files
-    packageName = 'com.example.resourcemanagementsystem' // The package name to use to generate sources
-    generateClient = true // Enable generating the type safe query API
 }
